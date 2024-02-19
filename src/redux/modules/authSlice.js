@@ -11,24 +11,6 @@ const initialState = {
   error: null,
 };
 
-// UserInfo: async (state, action) => {
-//   try {
-//     const response = await axios.get(
-//       "https://moneyfulpublicpolicy.co.kr/user",
-//       {
-//         headers: {
-//           "Content-Type": "application/json",
-//           Authorization: `Bearer ${accessToken}`,
-//         },
-//       }
-//     );
-//     console.log(response);
-//     return response;
-//   } catch (error) {
-//     alert("이러발생@");
-//   }
-// },
-
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -40,14 +22,29 @@ const authSlice = createSlice({
         state.isError = false;
       })
       .addCase(__logIn.fulfilled, (state, action) => {
-        localStorage.setItem("accessToken", action.payload.accessToken);
-        localStorage.setItem("userId", action.payload.userId);
-        localStorage.setItem("avatar", action.payload.avatar);
-        localStorage.setItem("nickname", action.payload.nickname);
-        console.log(action.payload);
+        const { accessToken, userId, avatar, nickname } = action.payload;
+        localStorage.setItem("accessToken", accessToken);
+        localStorage.setItem("userId", userId);
+        localStorage.setItem("avatar", avatar);
+        localStorage.setItem("nickname", nickname);
+        state.isLogin = true;
+        state.userId = userId;
+        state.avatar = avatar;
+        state.nickname = nickname;
         state.isLoading = false;
         state.isError = false;
-        state.isLogin = true;
+
+        // localStorage.setItem("accessToken", action.payload.accessToken);
+        // localStorage.setItem("userId", action.payload.userId);
+        // localStorage.setItem("avatar", action.payload.avatar);
+        // localStorage.setItem("nickname", action.payload.nickname);
+
+        // state.isLogin = true;
+        // state.userId = userId;
+        // state.avatar = avatar;
+        // state.nickname = nickname;
+        // state.isLoading = false;
+        // state.isError = false;
       })
       .addCase(__logIn.rejected, (state, action) => {
         state.isLoading = false;
@@ -73,7 +70,23 @@ const authSlice = createSlice({
       });
   },
 });
-
+// UserInfo: async (state, action) => {
+//   try {
+//     const response = await axios.get(
+//       "https://moneyfulpublicpolicy.co.kr/user",
+//       {
+//         headers: {
+//           "Content-Type": "application/json",
+//           Authorization: `Bearer ${accessToken}`,
+//         },
+//       }
+//     );
+//     console.log(response);
+//     return response;
+//   } catch (error) {
+//     alert("이러발생@");
+//   }
+// },
 export const __signUp = createAsyncThunk(
   "users/signUp",
   async (credentials) => {
