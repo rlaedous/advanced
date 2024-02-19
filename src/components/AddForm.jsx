@@ -2,11 +2,13 @@ import { useState } from "react";
 import styled from "styled-components";
 import { v4 as uuid } from "uuid";
 import Button from "./common/Button";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 // import { addLetter } from "redux/modules/letters";
 import { ADD_LETTER } from "redux/modules/lettersSlice";
 
 export default function AddForm() {
+  const isLogin = useSelector((state) => state.auth.nickname);
+
   // const { setLetters } = useContext(LetterContext);
   const dispatch = useDispatch();
 
@@ -28,7 +30,7 @@ export default function AddForm() {
     };
 
     dispatch(ADD_LETTER(newLetter));
-    setNickname("");
+    // setNickname("");
     setContent("");
   };
 
@@ -36,12 +38,14 @@ export default function AddForm() {
     <Form onSubmit={onAddLetter}>
       <InputWrapper>
         <label>닉네임:</label>
+        <span style={{ width: "100%", color: "white" }}>{isLogin}</span>
+        {/* 
         <input
           onChange={(event) => setNickname(event.target.value)}
           value={nickname}
           placeholder="최대 20글자까지 작성할 수 있습니다."
           maxLength={20}
-        />
+        /> */}
       </InputWrapper>
       <InputWrapper>
         <label>내용:</label>

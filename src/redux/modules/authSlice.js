@@ -53,22 +53,26 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
+      })
+
+      .addCase(__logOut.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__logOut.fulfilled, (state, action) => {
+        localStorage.clear();
+        console.log(action.payload);
+        state.isLoading = false;
+        state.isError = false;
+        state.isLogin = false;
+      })
+      .addCase(__logOut.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
       });
   },
 });
-
-export const __logIn = createAsyncThunk(
-  "users/logIn",
-  async (userData, thunkAPI) => {
-    try {
-      const response = await axios.post(
-        "https://moneyfulpublicpolicy.co.kr/login",
-        userData
-      );
-      return thunkAPI.fulfillWithValue(response.data);
-    } catch (error) {}
-  }
-);
 
 export const __signUp = createAsyncThunk(
   "users/signUp",
@@ -80,5 +84,32 @@ export const __signUp = createAsyncThunk(
   }
 );
 
-// export const { SignUp, LogIn } = authSlice.actions;
+export const __logIn = createAsyncThunk(
+  "users/logIn",
+  async (userData, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        "https://moneyfulpublicpolicy.co.kr/login",
+        userData
+      );
+
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      alert("에러발생");
+      console.log(error);
+    }
+  }
+);
+
+export const __logOut = createAsyncThunk(
+  "users/logOut",
+  async (userData, thunkAPI) => {
+    try {
+      console.log(userData);
+    } catch (error) {
+      alert("에러발생");
+      console.log(error);
+    }
+  }
+);
 export default authSlice.reducer;

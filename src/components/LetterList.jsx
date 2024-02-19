@@ -1,10 +1,21 @@
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LetterCard from "./LetterCard";
+import { useEffect } from "react";
+import { __getLetters } from "redux/modules/lettersSlice";
 
 export default function LetterList() {
   const activeMember = useSelector((state) => state.member);
-  const letters = useSelector((state) => state.letters);
+
+  // console.log("activeMember", activeMember);
+  const letters = useSelector((state) => state.letters.letters);
+  console.log("letters", letters);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(__getLetters());
+  }, [dispatch]);
 
   const filteredLetters = letters.filter(
     (letter) => letter.writedTo === activeMember
@@ -23,6 +34,7 @@ export default function LetterList() {
       )}
     </ListWrapper>
   );
+  return <div>ㅇㅇ</div>;
 }
 
 const ListWrapper = styled.ul`
