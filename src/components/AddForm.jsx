@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import Button from "./common/Button";
 import { useDispatch, useSelector } from "react-redux";
 // import { addLetter } from "redux/modules/letters";
-import { ADD_LETTER } from "redux/modules/lettersSlice";
+import { __addLetters } from "redux/modules/lettersSlice";
 
 export default function AddForm() {
   const isLogin = useSelector((state) => state.auth.nickname);
@@ -18,18 +18,18 @@ export default function AddForm() {
 
   const onAddLetter = (event) => {
     event.preventDefault();
-    if (!nickname || !content) return alert("닉네임과 내용은 필수값입니다.");
+    if (!content) return alert("내용은 필수값입니다.");
 
     const newLetter = {
-      id: uuid(),
-      nickname,
-      content,
-      avatar: null,
-      writedTo: member,
       createdAt: new Date(),
+      nickname: isLogin,
+      avatar: null,
+      content,
+      writedTo: member,
+      id: uuid(),
     };
 
-    dispatch(ADD_LETTER(newLetter));
+    dispatch(__addLetters(newLetter));
     // setNickname("");
     setContent("");
   };

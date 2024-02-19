@@ -5,21 +5,31 @@ import { useEffect } from "react";
 import { __getLetters } from "redux/modules/lettersSlice";
 
 export default function LetterList() {
-  const activeMember = useSelector((state) => state.member);
-
-  // console.log("activeMember", activeMember);
-  const letters = useSelector((state) => state.letters.letters);
-  console.log("letters", letters);
-
   const dispatch = useDispatch();
-
   useEffect(() => {
     dispatch(__getLetters());
   }, [dispatch]);
+  const { isLoading, error, letters } = useSelector((state) => state.letters);
+  // const letters = useSelector((state) => state.letters.letters);
+
+  const activeMember = useSelector((state) => state.member);
+
+  // console.log("activeMember", activeMember);
+
+  console.log("letters", letters);
 
   const filteredLetters = letters.filter(
     (letter) => letter.writedTo === activeMember
   );
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
   return (
     <ListWrapper>
       {filteredLetters.length === 0 ? (
@@ -34,7 +44,6 @@ export default function LetterList() {
       )}
     </ListWrapper>
   );
-  return <div>ㅇㅇ</div>;
 }
 
 const ListWrapper = styled.ul`

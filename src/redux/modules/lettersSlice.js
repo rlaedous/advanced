@@ -1,61 +1,96 @@
-import fakeData from "fakeData.json";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 
 const initialState = {
   letters: [],
+  isLoading: false,
+  isError: false,
+  error: null,
 };
-// 비동기 액션 생성자
+
+export const letterSlice = createSlice({
+  name: "letters",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      //__getLetters
+      .addCase(__getLetters.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__getLetters.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.letters = action.payload;
+      })
+      .addCase(__getLetters.rejected, (state, action) => {
+        state.isLoading = true;
+        state.isError = true;
+        state.error = action.payload;
+      })
+
+      //__addLetters
+      .addCase(__addLetters.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__addLetters.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.letters = [action.payload, ...state.letters];
+      })
+      .addCase(__addLetters.rejected, (state, action) => {
+        state.isLoading = true;
+        state.isError = true;
+        state.error = action.payload;
+      });
+  },
+});
+
 export const __getLetters = createAsyncThunk(
-  "letters/fetchLetters",
+  "letters/getLetters",
   async (payload, thunkAPI) => {
-    console.log("1");
     try {
       const response = await axios.get("http://localhost:5000/letters");
+      // const response = await axios.get("http://localhost:5000/letters", {
+      //   method: "GET",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //     Authorization: `Bearer ${accessToken}`,
+      //   },
+      // });
       console.log("response", response);
       // const data = await response.json();
       // console.log("data", data);
       // console.log("2");
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
+      alert("에러발생");
       console.log(error);
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
-export const letterSlice = createSlice({
-  name: "letters",
-  initialState,
-  reducers: {
-    ADD_LETTER: (state, action) => {
-      const newLetter = action.payload;
-      return [newLetter, ...state];
-    },
-    DELETE_LETTER: (state, action) => {
-      const letterId = action.payload;
-      return state.filter((letter) => letter.id !== letterId);
-    },
-    EDIT_LETTER: (state, action) => {
-      const { id, editingText } = action.payload;
-      return state.map((letter) => {
-        if (letter.id === id) {
-          return { ...letter, content: editingText };
-        }
-        return letter;
-      });
-    },
-    // default: (state, action) => {
-    //   return state;
-    // },
-  },
-  extraReducers: (builder) => {
-    builder.addCase(__getLetters.fulfilled, (state, action) => {
-      // 비동기 액션이 성공하면 서버에서 가져온 데이터로 상태를 갱신
-      state.letters = action.payload;
-    });
-  },
-});
 
-export const {} = letterSlice.actions;
-export const { ADD_LETTER, DELETE_LETTER, EDIT_LETTER } = letterSlice.actions;
+export const __addLetters = createAsyncThunk(
+  "letters/addLetters",
+  async (payload, thunkAPI) => {
+    try {
+      const response = await axios.post(
+        "http://localhost:5000/letters",
+        payload
+      );
+      console.log("payload", payload);
+      console.log("response", response);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      alert("에러발생!");
+      console.log(error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const { DELETE_LETTER, EDIT_LETTER } = letterSlice.actions;
 export default letterSlice.reducer;
