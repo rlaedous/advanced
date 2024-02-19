@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
-import { setMember } from "redux/modules/member";
+// import { setMember } from "redux/modules/member";
+import { SET_MEMBER } from "redux/modules/member";
 
 export default function Tabs() {
   const activeMember = useSelector((state) => state.member);
@@ -9,7 +10,7 @@ export default function Tabs() {
   const onActiveMember = (event) => {
     if (event.target === event.currentTarget) return;
 
-    dispatch(setMember(event.target.textContent));
+    dispatch(SET_MEMBER(event.target.textContent));
   };
   return (
     <TabsWrapper onClick={onActiveMember}>
