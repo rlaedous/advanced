@@ -4,7 +4,7 @@ import { v4 as uuid } from "uuid";
 import Button from "./common/Button";
 import { useDispatch } from "react-redux";
 // import { addLetter } from "redux/modules/letters";
-import { ADD_LETTER } from "redux/modules/letters";
+import { ADD_LETTER } from "redux/modules/lettersSlice";
 
 export default function AddForm() {
   // const { setLetters } = useContext(LetterContext);

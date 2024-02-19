@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { getFormattedDate } from "util/date";
 import { useSelector, useDispatch } from "react-redux";
 // import { deleteLetter, editLetter } from "redux/modules/letters";
-import { DELETE_LETTER, EDIT_LETTER } from "redux/modules/letters";
+import { DELETE_LETTER, EDIT_LETTER } from "redux/modules/lettersSlice";
 
 export default function Detail() {
   const dispatch = useDispatch();

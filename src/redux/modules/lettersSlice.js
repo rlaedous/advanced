@@ -18,8 +18,6 @@ import { createSlice } from "@reduxjs/toolkit";
 //   return { type: EDIT_LETTER, payload };
 // };
 
-const initialState = fakeData;
-
 // const letters = (state = initialState, action) => {
 //   switch (action.type) {
 //     case ADD_LETTER:
@@ -40,6 +38,9 @@ const initialState = fakeData;
 //       return state;
 //   }
 // };
+
+const initialState = fakeData;
+
 const letterSlice = createSlice({
   name: "letters",
   initialState,

@@ -1,7 +1,7 @@
 import styled, { css } from "styled-components";
 import { useSelector, useDispatch } from "react-redux";
 // import { setMember } from "redux/modules/member";
-import { SET_MEMBER } from "redux/modules/member";
+import { SET_MEMBER } from "redux/modules/memberSlice";
 
 export default function Tabs() {
   const activeMember = useSelector((state) => state.member);
