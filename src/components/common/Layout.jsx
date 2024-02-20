@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Outlet, Link, useNavigate } from "react-router-dom";
 import { __logOut } from "redux/modules/authSlice";
 import styled from "styled-components";
+import axios from "axios";
 
 export default function Layout() {
   const isLogin = useSelector((state) => state.auth.isLogin);
@@ -16,6 +17,31 @@ export default function Layout() {
     }
   }, [isLogin]);
 
+  useEffect(() => {
+    // 배포예시처럼  다른 탭 눌렀을 때는 멈추고 다시 현재 탭 들어왔을 때 실행이어지게!
+    // 웹 페이지 복귀 탐지
+    document.addEventListener("visibilitychange", async () => {
+      if (document.hidden) {
+      } else {
+        try {
+          const accessToken = localStorage.getItem("accessToken");
+          const response = await axios.get(
+            `${process.env.REACT_APP_SERVER_URL}/user`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+          console.log("response", response);
+        } catch (error) {
+          console.log("유저 통신 에러", error);
+          navigate("/login");
+        }
+      }
+    });
+  }, []);
   return (
     <>
       <Nav>

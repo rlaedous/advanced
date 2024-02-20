@@ -110,12 +110,6 @@ function Login() {
 
 export default Login;
 export const Top = styled.div`
-  /* align-items: center;
-  justify-content: center;
-  background-color: gray;
-  display: flex;
-  height: 100vh; */
-
   display: flex;
   justify-content: center;
   align-items: center;
@@ -123,14 +117,6 @@ export const Top = styled.div`
   background-color: lightgray;
 `;
 export const Wrapper = styled.form`
-  /* display: flex;
-  flex-direction: column;
-  align-items: center;
-  border-radius: 12px;
-  background-color: white;
-  width: 500px;
-  padding: 12px 18px; */
-
   display: flex;
   flex-direction: column;
   padding: 12px 18px;
