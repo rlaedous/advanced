@@ -8,6 +8,8 @@ import { __addLetters } from "redux/modules/lettersSlice";
 
 export default function AddForm() {
   const isLogin = useSelector((state) => state.auth.nickname);
+  const storeUserId = useSelector((state) => state.auth.userId);
+  // console.log("aa", aa);
 
   // const { setLetters } = useContext(LetterContext);
   const dispatch = useDispatch();
@@ -27,6 +29,7 @@ export default function AddForm() {
       content,
       writedTo: member,
       id: uuid(),
+      userId: storeUserId,
     };
 
     dispatch(__addLetters(newLetter));

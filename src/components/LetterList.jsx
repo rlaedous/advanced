@@ -12,12 +12,12 @@ export default function LetterList() {
   const { isLoading, error, letters } = useSelector((state) => state.letters);
   // const letters = useSelector((state) => state.letters.letters);
 
-  console.log("letters", letters);
+  // console.log("letters", letters);
   const activeMember = useSelector((state) => state.member);
 
   // console.log("activeMember", activeMember);
-  const aa = useSelector((state) => state);
-  console.log("aa", aa);
+  // const aa = useSelector((state) => state);
+  // console.log("aa", aa);
   const filteredLetters = letters.filter(
     (letter) => letter.writedTo === activeMember
   );
