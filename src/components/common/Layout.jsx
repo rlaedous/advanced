@@ -26,7 +26,7 @@ export default function Layout() {
         try {
           const accessToken = localStorage.getItem("accessToken");
           const response = await axios.get(
-            `${process.env.REACT_APP_SERVER_URL}/user`,
+            `${process.env.REACT_APP_API_KEY}/user`,
             {
               headers: {
                 "Content-Type": "application/json",

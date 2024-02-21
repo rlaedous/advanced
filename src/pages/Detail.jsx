@@ -16,7 +16,7 @@ export default function Detail() {
   const navigate = useNavigate();
 
   const letters = useSelector((state) => state.letters.letters);
-  console.log("letters", letters);
+
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
 
