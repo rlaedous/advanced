@@ -80,22 +80,31 @@
       "userId": "gwg03183"
     },
     {
-      "id": "ca8db6b1-757a-497c-b4bd-d7c09cda1fa7",
-      "createdAt": "2024-02-21T04:35:12.894Z",
-      "nickname": "11111111",
+      "id": "be3493fb-7eac-4979-8064-81ee3fff5a67",
+      "createdAt": "2024-02-21T05:58:42.558Z",
+      "nickname": "프로필",
       "avatar": null,
-      "content": "fffㄹㄴㅇㅁㄹㄴㅁ",
+      "content": "수정입니다111",
       "writedTo": "카리나",
       "userId": "gwg03183"
     },
     {
-      "id": "4e39b13e-892d-4f21-aa20-75025b8d43d4",
-      "createdAt": "2024-02-21T04:35:34.415Z",
-      "nickname": "nnnnnn",
+      "id": "b1180eca-94a9-4346-bfd8-506b5d81068b",
+      "createdAt": "2024-02-21T06:06:12.224Z",
+      "nickname": "프로필",
       "avatar": null,
-      "content": "흑흑11111111111111111",
-      "writedTo": "카리나",
+      "content": "ㅇㅇㅇㅇㅇㅇ",
+      "writedTo": "닝닝",
       "userId": "gwg03183"
+    },
+    {
+      "id": "32a7b309-2300-4649-bab5-877fca7bfa8d",
+      "createdAt": "2024-02-21T06:35:13.731Z",
+      "nickname": "dd12",
+      "avatar": null,
+      "content": "ddddddddddd111111",
+      "writedTo": "카리나",
+      "userId": "dd12"
     }
   ]
 }
