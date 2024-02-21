@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import axios from "axios";
+import authServer from "../../api/auth-api";
+
 const initialState = {
   isLogin: localStorage.getItem("accessToken") ? true : false,
   userId: localStorage.getItem("userId"),
@@ -17,6 +18,33 @@ const authSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder
+      //__editProfile
+      .addCase(__editProfile.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__editProfile.fulfilled, (state, action) => {
+        const { accessToken, avatar, nickname } = action.payload.data;
+        state.isLoading = false;
+        state.isError = false;
+        if (accessToken) {
+          localStorage.setItem("accessToken", accessToken);
+          state.accessToken = accessToken;
+        }
+        if (avatar) {
+          localStorage.setItem("avatar", avatar);
+          state.avatar = avatar;
+        }
+        if (nickname) {
+          localStorage.setItem("nickname", nickname);
+          state.nickname = nickname;
+        }
+      })
+      .addCase(__editProfile.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
+      })
       //__logIn
       .addCase(__logIn.pending, (state, action) => {
         state.isLoading = true;
@@ -60,14 +88,32 @@ const authSlice = createSlice({
   },
 });
 
+export const __editProfile = createAsyncThunk(
+  "users/editProfile",
+  async (formData, thunkAPI) => {
+    try {
+      const accessToken = localStorage.getItem("accessToken");
+      const response = authServer.patch(`/profile`, formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${accessToken}`,
+        },
+      });
+      console.log("response", response);
+      return response;
+    } catch (error) {
+      alert("프로필 변경 중 에러 발생 네트워크 메시지확인!!");
+      console.log("users/editProfile/error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export const __signUp = createAsyncThunk(
   "users/signUp",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_SERVER_URL}/register`,
-        userData
-      );
+      const response = await authServer.post(`/register`, userData);
       console.log(userData);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
@@ -82,9 +128,9 @@ export const __logIn = createAsyncThunk(
   "users/logIn",
   async (userData, thunkAPI) => {
     try {
-      const response = await axios.post(
+      const response = await authServer.post(
         // 만료시간 연습.. 잊지말자!!!!!
-        `${process.env.REACT_APP_SERVER_URL}/login?expiresIn=5s`,
+        `/login?expiresIn=50m`,
         userData
       );
       return thunkAPI.fulfillWithValue(response.data);
@@ -107,30 +153,5 @@ export const __logOut = createAsyncThunk(
     }
   }
 );
-
-// export const __userInfo = createAsyncThunk(
-//   "users/userInfo",
-//   async (userData, thunkAPI) => {
-//     try {
-//       const accessToken = localStorage.getItem("accessToken");
-//       const response = await axios.get(
-//         `https://moneyfulpublicpolicy.co.kr/user`,
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: `Bearer ${accessToken}`,
-//           },
-//         }
-//       );
-//       console.log(userData);
-//       console.log(response);
-//       return thunkAPI.fulfillWithValue(response);
-//     } catch (error) {
-//       alert("에러발생!");
-//       console.log(error);
-//       return thunkAPI.rejectWithValue(error);
-//     }
-//   }
-// );
 
 export default authSlice.reducer;

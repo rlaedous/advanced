@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import letterClient from "../../axios/letter-api";
+import letterClient from "../../api/letter-api";
 import { __logOut } from "./authSlice";
 
 const initialState = {
@@ -12,7 +12,23 @@ const initialState = {
 export const letterSlice = createSlice({
   name: "letters",
   initialState,
-  reducers: {},
+  reducers: {
+    DELETE_LETTER: (state, action) => {
+      const letterId = action.payload;
+      console.log("state", state);
+      console.log("letterId", letterId);
+      return state.filter((letter) => letter.id !== letterId);
+    },
+    EDIT_LETTER: (state, action) => {
+      const { id, editingText } = action.payload;
+      return state.map((letter) => {
+        if (letter.id === id) {
+          return { ...letter, content: editingText };
+        }
+        return letter;
+      });
+    },
+  },
   extraReducers: (builder) => {
     builder
       //__getLetters
@@ -51,6 +67,23 @@ export const letterSlice = createSlice({
         state.isLoading = false;
         state.isError = true;
         state.error = action.payload;
+      })
+      //__editLetters
+      .addCase(__editLetters.pending, (state, action) => {
+        state.isLoading = true;
+        state.isError = false;
+      })
+      .addCase(__editLetters.fulfilled, (state, action) => {
+        console.log("action.payload", action.payload);
+        state.isLoading = false;
+        state.isError = false;
+        state.letters = [action.payload, ...state.letters];
+        // state.letters = [...state.letters, action.payload];
+      })
+      .addCase(__editLetters.rejected, (state, action) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.error = action.payload;
       });
   },
 });
@@ -69,7 +102,6 @@ export const __getLetters = createAsyncThunk(
       console.log("letters/getLetters/error", error);
       // 다른슬라이스 디스패치
       thunkAPI.dispatch(__logOut());
-      // dispatch를 해주는 기능을 가진 api
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -80,19 +112,44 @@ export const __addLetters = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const response = await letterClient.post("/", payload);
-      console.log("payload", payload);
-      console.log("response.data", response.data);
-      // dispatch를 해주는 기능을 가진 api
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       localStorage.removeItem("accessToken");
       alert("팬레터 추가 중 에러발생 네트워크 메시지확인!!");
       console.log("letters/addLetters/error", error);
-      // dispatch를 해주는 기능을 가진 api
       return thunkAPI.rejectWithValue(error);
     }
   }
 );
 
-export const { DELETE_LETTER, EDIT_LETTER } = letterSlice.actions;
+export const __deleteLetters = createAsyncThunk(
+  "letters/deleteLetters",
+  async (id, thunkAPI) => {
+    try {
+      const response = await letterClient.delete(`/${id}`);
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      alert("팬레터 삭제 중 에러발생 네트워크 메시지확인!!");
+      console.log("letters/deleteLetters/error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __editLetters = createAsyncThunk(
+  "letters/editLetters",
+  async ({ id, editingText }, thunkAPI) => {
+    try {
+      const response = await letterClient.patch(`${id}`, {
+        content: editingText,
+      });
+      return thunkAPI.fulfillWithValue(response.data);
+    } catch (error) {
+      alert("팬레터 수정 중 에러발생 네트워크 메시지확인!!");
+      console.log("letters/editLetters/error", error);
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
 export default letterSlice.reducer;

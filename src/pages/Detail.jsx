@@ -1,38 +1,48 @@
 import Avatar from "components/common/Avatar";
 import Button from "components/common/Button";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { getFormattedDate } from "util/date";
 import { useSelector, useDispatch } from "react-redux";
-// import { deleteLetter, editLetter } from "redux/modules/letters";
-import { DELETE_LETTER, EDIT_LETTER } from "redux/modules/lettersSlice";
+import {
+  __deleteLetters,
+  __editLetters,
+  __getLetters,
+} from "redux/modules/lettersSlice";
 
 export default function Detail() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const letters = useSelector((state) => state.letters.letters);
   console.log("letters", letters);
   const [isEditing, setIsEditing] = useState(false);
   const [editingText, setEditingText] = useState("");
-  const navigate = useNavigate();
+
   const { id } = useParams();
+
+  useEffect(() => {
+    dispatch(__getLetters());
+  }, [dispatch]);
+
+  // if (letters.length === 0) return null;
   const { avatar, nickname, createdAt, writedTo, content, userId } =
     letters.find((letter) => letter.id === id);
 
-  console.log(userId);
-
   const onDeleteBtn = () => {
     const answer = window.confirm("정말로 삭제하시겠습니까?");
+
     if (!answer) return;
 
-    dispatch(DELETE_LETTER(id));
+    dispatch(__deleteLetters(id));
     navigate("/");
   };
 
   const onEditDone = () => {
     if (!editingText) return alert("수정사항이 없습니다.");
 
-    dispatch(EDIT_LETTER({ id, editingText }));
+    dispatch(__editLetters({ id, editingText }));
     setIsEditing(false);
     setEditingText("");
   };
@@ -44,7 +54,6 @@ export default function Detail() {
           <Button text="홈으로" />
         </HomeBtn>
       </Link>
-
       <DetailWrapper>
         <UserInfo>
           <AvatarAndNickname>
