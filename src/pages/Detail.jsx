@@ -26,7 +26,7 @@ export default function Detail() {
     dispatch(__getLetters());
   }, [dispatch]);
 
-  // if (letters.length === 0) return null;
+  if (letters.length === 0) return null;
   const { avatar, nickname, createdAt, writedTo, content, userId } =
     letters.find((letter) => letter.id === id);
 
