@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const letterClient = axios.create({
-  baseURL: "http://localhost:5000/letters1111",
+  baseURL: "http://localhost:5000/letters",
 });
 
 letterClient.interceptors.request.use(
