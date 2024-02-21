@@ -105,6 +105,42 @@
       "content": "ddddddddddd111111",
       "writedTo": "카리나",
       "userId": "dd12"
+    },
+    {
+      "id": "e8841863-f5be-4916-9291-0af6a5c56038",
+      "createdAt": "2024-02-21T06:47:53.260Z",
+      "nickname": "프로필",
+      "avatar": null,
+      "content": "글리치.....?",
+      "writedTo": "카리나",
+      "userId": "gwg03183"
+    },
+    {
+      "id": "fe8680b4-5249-4a6f-8acf-c6a5aac84dc3",
+      "createdAt": "2024-02-21T06:52:29.557Z",
+      "nickname": "dd12",
+      "avatar": null,
+      "content": "ㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
+      "writedTo": "카리나",
+      "userId": "dd12"
+    },
+    {
+      "id": "ad51504a-482f-4720-a096-4d738ec70fa6",
+      "createdAt": "2024-02-21T07:46:30.775Z",
+      "nickname": "프로필수정입니다",
+      "avatar": null,
+      "content": "ㅇㅇㅇㅇ",
+      "writedTo": "카리나",
+      "userId": "gwg03183"
+    },
+    {
+      "id": "bfaeac19-cbdd-42af-8f2e-041aa77eef84",
+      "createdAt": "2024-02-21T07:59:42.208Z",
+      "nickname": "프로필수정입니다",
+      "avatar": null,
+      "content": "111",
+      "writedTo": "카리나",
+      "userId": "gwg03183"
     }
   ]
 }

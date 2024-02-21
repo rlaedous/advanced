@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Top } from "./Login";
 import Avatar from "components/common/Avatar";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,6 +12,9 @@ const Profile = () => {
   const [isEdit, setIsEdit] = useState(false);
   const [editNickname, setEditNickname] = useState(nickname);
 
+  const fileInputRef = useRef(null);
+  // //console.log("avatar, userId, nickname ", avatar, userId, nickname);
+
   const nickChangeHandler = (e) => {
     setEditNickname(e.target.value);
   };
@@ -23,14 +26,36 @@ const Profile = () => {
     }
     dispatch(__editProfile(formData));
     setIsEdit(false);
+    // //console.log("formData", formData);
+  };
+
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const selectedFile = e.target.files[0];
+
+    if (selectedFile) {
+      const formData = new FormData();
+      formData.append("avatar", selectedFile);
+      dispatch(__editProfile(formData));
+    }
   };
 
   return (
     <Top>
       <ProfileWrapper>
         <ProfileManagement>프로필 관리</ProfileManagement>
-        <ImageFigure>
+        <ImageFigure onClick={handleImageClick}>
           <Avatar size="large" src={avatar} />
+
+          <Input
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            onChange={handleFileChange}
+          />
         </ImageFigure>
 
         {isEdit ? (

@@ -15,8 +15,8 @@ export const letterSlice = createSlice({
   reducers: {
     DELETE_LETTER: (state, action) => {
       const letterId = action.payload;
-      console.log("state", state);
-      console.log("letterId", letterId);
+      //console.log("state", state);
+      //console.log("letterId", letterId);
       return state.filter((letter) => letter.id !== letterId);
     },
     EDIT_LETTER: (state, action) => {
@@ -74,7 +74,7 @@ export const letterSlice = createSlice({
         state.isError = false;
       })
       .addCase(__editLetters.fulfilled, (state, action) => {
-        console.log("action.payload", action.payload);
+        //console.log("action.payload", action.payload);
         state.isLoading = false;
         state.isError = false;
         state.letters = [action.payload, ...state.letters];
@@ -99,7 +99,7 @@ export const __getLetters = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("팬레터 조회 중 에러 발생 네트워크 메시지확인!!");
-      console.log("letters/getLetters/error", error);
+      //console.log("letters/getLetters/error", error);
       // 다른슬라이스 디스패치
       thunkAPI.dispatch(__logOut());
       return thunkAPI.rejectWithValue(error);
@@ -116,7 +116,7 @@ export const __addLetters = createAsyncThunk(
     } catch (error) {
       localStorage.removeItem("accessToken");
       alert("팬레터 추가 중 에러발생 네트워크 메시지확인!!");
-      console.log("letters/addLetters/error", error);
+      //console.log("letters/addLetters/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -130,7 +130,7 @@ export const __deleteLetters = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("팬레터 삭제 중 에러발생 네트워크 메시지확인!!");
-      console.log("letters/deleteLetters/error", error);
+      //console.log("letters/deleteLetters/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -146,7 +146,7 @@ export const __editLetters = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("팬레터 수정 중 에러발생 네트워크 메시지확인!!");
-      console.log("letters/editLetters/error", error);
+      //console.log("letters/editLetters/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }

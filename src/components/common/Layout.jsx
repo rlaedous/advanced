@@ -34,9 +34,9 @@ export default function Layout() {
               },
             }
           );
-          // console.log("response", response);
+          // //console.log("response", response);
         } catch (error) {
-          console.log("유저 통신 에러", error);
+          //console.log("유저 통신 에러", error);
           navigate("/login");
         }
       }

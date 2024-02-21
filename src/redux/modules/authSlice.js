@@ -99,11 +99,11 @@ export const __editProfile = createAsyncThunk(
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      console.log("response", response);
+      //console.log("response", response);
       return response;
     } catch (error) {
       alert("프로필 변경 중 에러 발생 네트워크 메시지확인!!");
-      console.log("users/editProfile/error", error);
+      //console.log("users/editProfile/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -114,11 +114,11 @@ export const __signUp = createAsyncThunk(
   async (userData, thunkAPI) => {
     try {
       const response = await authServer.post(`/register`, userData);
-      console.log(userData);
+      //console.log(userData);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("회원가입 중 에러 발생 네트워크 메시지확인!!");
-      console.log("users/signUp/error", error);
+      //console.log("users/signUp/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -136,7 +136,7 @@ export const __logIn = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("로그인 중 에러발생 네트워크 메시지확인!!");
-      console.log("users/logIn/error", error);
+      //console.log("users/logIn/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -146,10 +146,10 @@ export const __logOut = createAsyncThunk(
   "users/logOut",
   async (userData, thunkAPI) => {
     try {
-      console.log("로그아웃!");
+      //console.log("로그아웃!");
     } catch (error) {
       alert("로그아웃 중 에러발생 네트워크 메시지확인!!");
-      console.log("users/logOut/error", error);
+      //console.log("users/logOut/error", error);
     }
   }
 );
