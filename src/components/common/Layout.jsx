@@ -15,7 +15,7 @@ export default function Layout() {
     if (!isLogin) {
       navigate("/login");
     }
-  }, [isLogin]);
+  }, [navigate, isLogin]);
 
   useEffect(() => {
     // 배포예시처럼  다른 탭 눌렀을 때는 멈추고 다시 현재 탭 들어왔을 때 실행이어지게!
@@ -25,23 +25,18 @@ export default function Layout() {
       } else {
         try {
           const accessToken = localStorage.getItem("accessToken");
-          const response = await axios.get(
-            `${process.env.REACT_APP_API_KEY}/user`,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${accessToken}`,
-              },
-            }
-          );
-          // //console.log("response", response);
+          await axios.get(`${process.env.REACT_APP_API_KEY}/user`, {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${accessToken}`,
+            },
+          });
         } catch (error) {
-          //console.log("유저 통신 에러", error);
           navigate("/login");
         }
       }
     });
-  }, []);
+  }, [navigate]);
   return (
     <>
       <Nav>

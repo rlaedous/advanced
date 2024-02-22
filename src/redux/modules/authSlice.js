@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authServer from "../../api/auth-api";
+import axios from "axios";
 
 const initialState = {
   isLogin: localStorage.getItem("accessToken") ? true : false,
   userId: localStorage.getItem("userId"),
   avatar: localStorage.getItem("avatar"),
   nickname: localStorage.getItem("nickname"),
-  // accessToken: localStorage.getItem("accessToken"),
   isLoading: false,
   isError: false,
   error: null,
@@ -24,7 +24,7 @@ const authSlice = createSlice({
         state.isError = false;
       })
       .addCase(__editProfile.fulfilled, (state, action) => {
-        const { accessToken, avatar, nickname } = action.payload.data;
+        const { accessToken, avatar, nickname } = action.payload;
         state.isLoading = false;
         state.isError = false;
         if (accessToken) {
@@ -89,36 +89,46 @@ const authSlice = createSlice({
 });
 
 export const __editProfile = createAsyncThunk(
-  "users/editProfile",
+  "editProfile",
   async (formData, thunkAPI) => {
     try {
       const accessToken = localStorage.getItem("accessToken");
-      const response = authServer.patch(`/profile`, formData, {
+      const { data } = await authServer.patch(`/profile`, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${accessToken}`,
         },
       });
-      //console.log("response", response);
-      return response;
-    } catch (error) {
-      alert("프로필 변경 중 에러 발생 네트워크 메시지확인!!");
-      //console.log("users/editProfile/error", error);
-      return thunkAPI.rejectWithValue(error);
+      const editingObj = {};
+      const { nickname, avatar } = data;
+      if (nickname) editingObj.nickname = nickname;
+      if (avatar) editingObj.avatar = avatar;
+      // JSON서버에 내 팬레터들의 닉네임과 아바타 변경
+      const userId = localStorage.getItem("userId");
+      const { data: myLetters } = await axios.get(
+        `http://localhost:5000/letters?userId=${userId}`
+      );
+      for (const myLetter of myLetters) {
+        await axios.patch(
+          `http://localhost:5000/letters/${myLetter.id}`,
+          editingObj
+        );
+      }
+
+      return data;
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err);
     }
   }
 );
-
 export const __signUp = createAsyncThunk(
   "users/signUp",
   async (userData, thunkAPI) => {
     try {
       const response = await authServer.post(`/register`, userData);
-      //console.log(userData);
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("회원가입 중 에러 발생 네트워크 메시지확인!!");
-      //console.log("users/signUp/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -136,7 +146,6 @@ export const __logIn = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
     } catch (error) {
       alert("로그인 중 에러발생 네트워크 메시지확인!!");
-      //console.log("users/logIn/error", error);
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -144,12 +153,11 @@ export const __logIn = createAsyncThunk(
 
 export const __logOut = createAsyncThunk(
   "users/logOut",
-  async (userData, thunkAPI) => {
+  async (payload, thunkAPI) => {
     try {
-      //console.log("로그아웃!");
     } catch (error) {
       alert("로그아웃 중 에러발생 네트워크 메시지확인!!");
-      //console.log("users/logOut/error", error);
+      return thunkAPI.rejectWithValue(error);
     }
   }
 );

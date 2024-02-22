@@ -29,16 +29,3 @@ export default function Router() {
     </BrowserRouter>
   );
 }
-
-// export default function Router() {
-//   return (
-//     <BrowserRouter>
-//       <Routes>
-//         <Route path="/login" element={<Login />} />
-//         <Route path="/" element={<Home />} />
-//         <Route path="/detail/:id" element={<Detail />} />
-//         <Route path="*" element={<Navigate replace to="/" />} />
-//       </Routes>
-//     </BrowserRouter>
-//   );
-// }

@@ -17,128 +17,56 @@
       "id": "2"
     },
     {
-      "id": "bee8a5e4-5013-40c9-b1c6-45cf08d209ed",
-      "createdAt": "2024-02-20T07:49:04.742Z",
-      "nickname": "오렌지",
-      "avatar": null,
-      "content": "ㄹㅇㄴㅁㄹㅇㄴㅁㄹㅇㄴㅁ",
+      "id": "e1830163-9724-421a-a2c6-143c53d8333f",
+      "createdAt": "2024-02-22T01:46:10.573Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
+      "content": "안녕",
       "writedTo": "카리나",
       "userId": "gwg03183"
     },
     {
-      "id": "578378ea-f7c5-4966-8f39-d7c6efb77d9a",
-      "createdAt": "2024-02-20T12:34:42.450Z",
-      "nickname": "rlaeodus",
-      "avatar": null,
-      "content": "aaaaaaaa",
-      "writedTo": "카리나",
-      "userId": "dy12"
-    },
-    {
-      "id": "55be77f9-f880-46a4-960a-385646815096",
-      "createdAt": "2024-02-21T01:34:30.509Z",
-      "nickname": "오렌지111313",
-      "avatar": null,
-      "content": "ㅁㅁㅁㅁㅁ",
+      "id": "cd63d270-cc1d-441b-93ee-50326ccbe561",
+      "createdAt": "2024-02-22T01:46:19.524Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
+      "content": "ㅇㅇㅇ1111",
       "writedTo": "카리나",
       "userId": "gwg03183"
     },
     {
-      "id": "14437f17-3cbc-4bda-8aed-c4d0d5d7ddb0",
-      "createdAt": "2024-02-21T02:07:14.867Z",
-      "nickname": "dy99",
-      "avatar": null,
-      "content": "dd",
-      "writedTo": "카리나",
-      "userId": "dy99"
-    },
-    {
-      "id": "5a26218b-c098-456a-a445-989f1e31db58",
-      "createdAt": "2024-02-21T03:14:14.804Z",
-      "nickname": "11111111",
-      "avatar": null,
-      "content": "dddddddddddㅇㅇㅇㄹㅇㅁㄴ",
+      "id": "cdf981e2-31fb-4b2d-b0df-3093dd912086",
+      "createdAt": "2024-02-22T03:03:03.466Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
+      "content": "ㅇㅇㅇ",
       "writedTo": "카리나",
       "userId": "gwg03183"
     },
     {
-      "id": "327e5d1a-b579-412c-a821-e181384439d5",
-      "createdAt": "2024-02-21T03:27:14.107Z",
-      "nickname": "11111111",
-      "avatar": null,
-      "content": "111111111수정ㅠㅠㅠㅠㅠㅠㅠ",
-      "writedTo": "카리나",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "889942f9-afeb-4f0d-ab27-d75b749574ba",
-      "createdAt": "2024-02-21T03:28:22.567Z",
-      "nickname": "11111111",
-      "avatar": null,
-      "content": "바보입니다ㅠㅠㅜㅜㅜㅇㅇㅇddd",
-      "writedTo": "카리나",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "be3493fb-7eac-4979-8064-81ee3fff5a67",
-      "createdAt": "2024-02-21T05:58:42.558Z",
-      "nickname": "프로필",
-      "avatar": null,
-      "content": "수정입니다111",
-      "writedTo": "카리나",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "b1180eca-94a9-4346-bfd8-506b5d81068b",
-      "createdAt": "2024-02-21T06:06:12.224Z",
-      "nickname": "프로필",
-      "avatar": null,
-      "content": "ㅇㅇㅇㅇㅇㅇ",
-      "writedTo": "닝닝",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "32a7b309-2300-4649-bab5-877fca7bfa8d",
-      "createdAt": "2024-02-21T06:35:13.731Z",
-      "nickname": "dd12",
-      "avatar": null,
-      "content": "ddddddddddd111111",
-      "writedTo": "카리나",
-      "userId": "dd12"
-    },
-    {
-      "id": "e8841863-f5be-4916-9291-0af6a5c56038",
-      "createdAt": "2024-02-21T06:47:53.260Z",
-      "nickname": "프로필",
-      "avatar": null,
-      "content": "글리치.....?",
-      "writedTo": "카리나",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "fe8680b4-5249-4a6f-8acf-c6a5aac84dc3",
-      "createdAt": "2024-02-21T06:52:29.557Z",
-      "nickname": "dd12",
-      "avatar": null,
-      "content": "ㅇㅇㅇㅇㅇㅇㅇㅇㅇ",
-      "writedTo": "카리나",
-      "userId": "dd12"
-    },
-    {
-      "id": "ad51504a-482f-4720-a096-4d738ec70fa6",
-      "createdAt": "2024-02-21T07:46:30.775Z",
-      "nickname": "프로필수정입니다",
-      "avatar": null,
-      "content": "ㅇㅇㅇㅇ",
-      "writedTo": "카리나",
-      "userId": "gwg03183"
-    },
-    {
-      "id": "bfaeac19-cbdd-42af-8f2e-041aa77eef84",
-      "createdAt": "2024-02-21T07:59:42.208Z",
-      "nickname": "프로필수정입니다",
-      "avatar": null,
+      "id": "81ac2302-88b1-49f9-b800-c23a4a3139d3",
+      "createdAt": "2024-02-22T03:04:17.683Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
       "content": "111",
+      "writedTo": "카리나",
+      "userId": "gwg03183"
+    },
+    {
+      "id": "efa9060a-84d5-4746-a9b4-bdea26e6c5e8",
+      "createdAt": "2024-02-22T03:04:19.755Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
+      "content": "3131",
+      "writedTo": "카리나",
+      "userId": "gwg03183"
+    },
+    {
+      "id": "51243d21-0a4d-4a74-8493-24c27642b012",
+      "createdAt": "2024-02-22T03:05:18.900Z",
+      "nickname": "1변경",
+      "avatar": "https://react-jwt-avatar.s3.ap-northeast-2.amazonaws.com/24-02-22/42fec1c7-fa40-4f16-947a-3df2a80c9fda.jpg",
+      "content": "수정\n",
       "writedTo": "카리나",
       "userId": "gwg03183"
     }

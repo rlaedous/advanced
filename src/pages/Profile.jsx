@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { Top } from "./Login";
 import Avatar from "components/common/Avatar";
 import { useDispatch, useSelector } from "react-redux";
@@ -10,60 +10,66 @@ const Profile = () => {
 
   const dispatch = useDispatch();
   const [isEdit, setIsEdit] = useState(false);
-  const [editNickname, setEditNickname] = useState(nickname);
-
+  const [editNickname, setEditNickname] = useState("");
+  const [selectedFile, setSelectedFile] = useState(null);
   const fileInputRef = useRef(null);
-  // //console.log("avatar, userId, nickname ", avatar, userId, nickname);
 
   const nickChangeHandler = (e) => {
     setEditNickname(e.target.value);
   };
-
-  const handleEdit = () => {
-    const formData = new FormData();
-    if (editNickname) {
-      formData.append("nickname", editNickname);
-    }
-    dispatch(__editProfile(formData));
-    setIsEdit(false);
-    // //console.log("formData", formData);
-  };
-
   const handleImageClick = () => {
     fileInputRef.current.click();
   };
 
   const handleFileChange = (e) => {
-    const selectedFile = e.target.files[0];
+    const file = e.target.files[0];
+    setSelectedFile(file);
+  };
 
-    if (selectedFile) {
-      const formData = new FormData();
-      formData.append("avatar", selectedFile);
-      dispatch(__editProfile(formData));
+  const handleEdit = () => {
+    if (!editNickname && !selectedFile) {
+      alert("수정사항이 없습니다!");
+      return;
     }
+    const formData = new FormData();
+    if (isEdit) {
+      formData.append("nickname", editNickname);
+    }
+    if (selectedFile !== avatar) {
+      formData.append("avatar", selectedFile);
+    }
+    dispatch(__editProfile(formData));
+    setIsEdit(false);
+  };
+
+  const handleCancel = () => {
+    setIsEdit(false);
   };
 
   return (
     <Top>
       <ProfileWrapper>
         <ProfileManagement>프로필 관리</ProfileManagement>
-        <ImageFigure onClick={handleImageClick}>
+        {isEdit ? (
+          <ImageFigure onClick={handleImageClick}>
+            <Avatar size="large" src={avatar} />
+            <Input
+              type="file"
+              accept="image/*"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+            />
+          </ImageFigure>
+        ) : (
           <Avatar size="large" src={avatar} />
-
-          <Input
-            type="file"
-            accept="image/*"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-          />
-        </ImageFigure>
+        )}
 
         {isEdit ? (
           <>
-            <input defaultValue={editNickname} onChange={nickChangeHandler} />
+            <input defaultValue={nickname} onChange={nickChangeHandler} />
             <ProfileUserId>{userId}</ProfileUserId>
             <EditWrap>
-              <EditButton onClick={() => setIsEdit(false)}>취소</EditButton>
+              <EditButton onClick={handleCancel}>취소</EditButton>
               <EditButton onClick={handleEdit}>수정</EditButton>
             </EditWrap>
           </>
@@ -103,12 +109,12 @@ const ImageFigure = styled.figure`
   border-radius: 50%;
   overflow: hidden;
 `;
-const Image = styled.image`
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-`;
+// const Image = styled.image`
+//   width: 100%;
+//   height: 100%;
+//   object-fit: cover;
+//   border-radius: 50%;
+// `;
 const ProfileNickname = styled.span`
   font-size: 24px;
   font-weight: 700;
